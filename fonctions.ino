@@ -33,12 +33,12 @@ NOMBRE creer_nombre(float temp)
 void relais()
 {
 
-  if (temp <= temperature_consigne - .5)
+  if (temp/10 <= temperature_consigne - .3)
   {
     digitalWrite(Relay1Pin, LOW);
     digitalWrite(Relay2Pin, LOW);
   }
-  if (temp >= temperature_consigne + .5)
+  if (temp/10 >= temperature_consigne + .3)
   {
     digitalWrite(Relay1Pin, HIGH);
     digitalWrite(Relay2Pin, HIGH);

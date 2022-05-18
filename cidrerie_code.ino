@@ -11,9 +11,9 @@
 #define SEGP 48
 
 //encoder
-#define KEY 2 // KEY pin
-#define S2 3  // S2 pin
-#define S1 4  // S1 pin
+#define KEY 24 // KEY pin
+#define S2 26  // S2 pin
+#define S1 28  // S1 pin
 #define CCW 0b010010  // knob turn CCW pattern
 #define CW 0b100001   // knob turn CW pattern
 #define DEF 0b11  // default / base value of encoder signal
@@ -27,10 +27,10 @@ int maxtemp = 30;
 int mintemp = 1;
 
 const int numReadings = 60;
-int inputPin = A7;
+int inputPin = A15;
 int sensorValue = 0;
-int Relay1Pin = 5;
-int Relay2Pin = 6;
+int Relay1Pin = 25;
+int Relay2Pin = 27;
 
 int readings[numReadings];      // the readings from the analog input
 int readIndex = 0;              // the index of the current reading
@@ -62,6 +62,7 @@ NOMBRE creer_nombre(float temp);
 void relais();
 
 void loop() {
+  Serial.println(temp);
 
   selectTemp(); // potntiometre + bouton
   temperature = readTemp(); // lecture de temperature par NTC
