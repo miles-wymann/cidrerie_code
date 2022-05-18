@@ -1,6 +1,7 @@
-//Displays temperature, by writing each digit to 7 segment display
+// Displays temperature, by writing each digit to 7 segment display
 
-void affiche_temperature(NOMBRE nombre) {
+void affiche_temperature(NOMBRE nombre)
+{
   digitalWrite(DIGIT1, LOW);
   digitalWrite(DIGIT2, HIGH);
   digitalWrite(DIGIT3, HIGH);
@@ -21,28 +22,31 @@ void affiche_temperature(NOMBRE nombre) {
   delay(1);
 }
 
-NOMBRE creer_nombre(float temp) {
+NOMBRE creer_nombre(float temp)
+{
   NOMBRE nombre;
   nombre.dizaine = (int)temp / 100;
   nombre.unite = (int)(temp - (nombre.dizaine * 100)) / 10;
   nombre.decimale = temp - nombre.dizaine * 100 - nombre.unite * 10;
   return nombre;
 }
-void relais() {
+void relais()
+{
 
-  if ((temp >= temperature_consigne + .5) && (button1State == 1))
+  if (temp <= temperature_consigne - .5)
   {
     digitalWrite(Relay1Pin, LOW);
     digitalWrite(Relay2Pin, LOW);
   }
-  else if (temp >= temperature_consigne - .5 && button1State == 0) {
+  if (temp >= temperature_consigne + .5)
+  {
     digitalWrite(Relay1Pin, HIGH);
     digitalWrite(Relay2Pin, HIGH);
   }
 }
 
-
-int readTemp() {
+int readTemp()
+{
   // subtract the last reading:
   total = total - readings[readIndex];
   readings[readIndex] = analogRead(inputPin);
@@ -51,7 +55,8 @@ int readTemp() {
   readIndex = readIndex + 1;
 
   // if we're at the end of the array...
-  if (readIndex >= numReadings) {
+  if (readIndex >= numReadings)
+  {
     // ...wrap around to the beginning:
     readIndex = 0;
   }
@@ -65,33 +70,45 @@ int readTemp() {
   return temp;
 }
 
-int selectTemp() {
-  //Test this button function, it might have errors. It will be used to start the cooling and regulation process
+int selectTemp()
+{
+  // Test this button function, it might have errors. It will be used to start the cooling and regulation process
 
-  if (aktKey == 1 && button1State == 0) {
+  if (aktKey == 1 && button1State == 0)
+  {
     button1State = 1;
   }
-  if (aktKey == 1 && button1State == 1) {
+  if (aktKey == 1 && button1State == 1)
+  {
     button1State == 0;
   }
-  
+
   Serial.println(button1State);
 
-  byte aktPattern = (aktS1 << 1) | aktS2;  //je ne comprend pas vraiment cette partie :/
+  byte aktPattern = (aktS1 << 1) | aktS2; // je ne comprend pas vraiment cette partie :/
 
-  if (aktPattern != prevPattern) {
+  if (aktPattern != prevPattern)
+  {
     prevPattern = aktPattern;
-    if ( aktPattern != DEF ) {
+    if (aktPattern != DEF)
+    {
       pattern = (pattern << 2) | aktPattern;
-    } else {
-      if (pattern == CW ) {
+    }
+    else
+    {
+      if (pattern == CW)
+      {
         tempSelect++;
-        if (tempSelect >= maxtemp) {
+        if (tempSelect >= maxtemp)
+        {
           tempSelect = maxtemp;
         }
-      } else if (pattern == CCW ) {
+      }
+      else if (pattern == CCW)
+      {
         tempSelect--;
-        if (tempSelect <= mintemp) {
+        if (tempSelect <= mintemp)
+        {
           tempSelect = mintemp;
         }
       }
