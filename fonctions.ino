@@ -33,12 +33,12 @@ NOMBRE creer_nombre(float temp)
 void relais()
 {
 
-  if (temp/10 <= temperature_consigne - .3)
+  if (temp / 10 <= temperature_consigne - .3)
   {
     digitalWrite(Relay1Pin, LOW);
     digitalWrite(Relay2Pin, LOW);
   }
-  if (temp/10 >= temperature_consigne + .3)
+  if (temp / 10 >= temperature_consigne + .3)
   {
     digitalWrite(Relay1Pin, HIGH);
     digitalWrite(Relay2Pin, HIGH);
@@ -65,7 +65,12 @@ int readTemp()
   // send it to the computer as ASCII digits
 
   v = average * (5.0 / 1023.0);
-  temp = 0.1939 * pow(v, 6) - 3.5228 * pow(v, 5) + 24.898 * pow(v, 4) - 88.351 * pow(v, 3) + 168.26 * pow(v, 2) - 185.45 * v + 132.38;
+
+  // New temp calculation using pandas
+  temp = 0.05334*pow(v, 6) - 0.9057*pow(v, 5) + 6.367*pow(v, 4) - 24.7*pow(v, 3), +57.69*pow(v, 2) - 94.88*pow(v, 1) + 105.5;
+
+  // Old temp calculation using excel
+  //   temp = 0.1939 * pow(v, 6) - 3.5228 * pow(v, 5) + 24.898 * pow(v, 4) - 88.351 * pow(v, 3) + 168.26 * pow(v, 2) - 185.45 * v + 132.38;
   temp = temp * 10;
   return temp;
 }
