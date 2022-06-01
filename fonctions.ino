@@ -75,8 +75,7 @@ int readTemp()
   v = average * (5.05 / 1023.0);
   // New temp calculation using pandas
   temp = 0.05334 * pow(v, 6) - 0.9057 * pow(v, 5) + 6.367 * pow(v, 4) - 24.7 * pow(v, 3) + 57.69 * pow(v, 2) - 94.88 * pow(v, 1) + 105.5;
-  //  temp = temp + tempOffset;
-  //  Serial.println(temp);
+  temp = temp + tempOffset;
 
   temp = temp * 10;
   return temp;

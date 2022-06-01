@@ -42,8 +42,8 @@ byte button1Last = 0;
 byte button1State = 0;
 
 int temperature;
-float temperature_consigne = 15;
-float tempOffset = -.4;
+float temperature_consigne = 5;
+float tempOffset = -1.5;
 
 struct NOMBRE
 {
