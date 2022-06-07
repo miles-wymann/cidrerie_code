@@ -35,25 +35,29 @@ void relais()
 
   if (button1State == 0)
   {
-    if (temp / 10 <= temperature_consigne - .3)
+    if (temp <= temperature_consigne - .3)
     {
       digitalWrite(Relay1Pin, LOW);
       digitalWrite(Relay2Pin, LOW);
     }
-    if (temp / 10 >= temperature_consigne + .3)
+    if (temp >= temperature_consigne + .3)
     {
       digitalWrite(Relay1Pin, HIGH);
       digitalWrite(Relay2Pin, HIGH);
     }
+    NOMBRE nombre = creer_nombre(temperature);
+    affiche_temperature(nombre); // Affichage
   }
   if (button1State == 1)
   {
     digitalWrite(Relay1Pin, LOW);
     digitalWrite(Relay2Pin, LOW);
+    NOMBRE nombre = creer_nombre(tempSelect*10);
+    affiche_temperature(nombre); // Affichage
   }
 }
 
-int readTemp()
+float readTemp()
 {
   // subtract the last reading:
   total = total - readings[readIndex];
@@ -76,8 +80,6 @@ int readTemp()
   // New temp calculation using pandas
   temp = 0.05334 * pow(v, 6) - 0.9057 * pow(v, 5) + 6.367 * pow(v, 4) - 24.7 * pow(v, 3) + 57.69 * pow(v, 2) - 94.88 * pow(v, 1) + 105.5;
   temp = temp + tempOffset;
-
-  temp = temp * 10;
   return temp;
 }
 
@@ -85,7 +87,7 @@ int selectTemp()
 {
   // Simple button on off function with simple temperature regulation
   {
-    byte aktKey = digitalRead(KEY);
+    aktKey = digitalRead(KEY);
     if (aktKey == 1 && button1Last == 0)
       if (aktKey == 1)
       {
@@ -102,12 +104,12 @@ int selectTemp()
   }
 
   {
-    byte aktS1 = digitalRead(S1);
-    byte aktS2 = digitalRead(S2);
+    aktS1 = digitalRead(S1);
+    aktS2 = digitalRead(S2);
 
-    byte aktPattern = (aktS1 << 1) | aktS2; // je ne comprend pas vraiment cette partie :/
+    aktPattern = (aktS1 << 1) | aktS2;
 
-    if (aktPattern != prevPattern)
+    if (aktPattern != prevPattern && button1State == 1)
     {
       prevPattern = aktPattern;
       if (aktPattern != DEF)
@@ -135,5 +137,6 @@ int selectTemp()
         pattern = 0;
       }
     }
+    temperature_consigne = tempSelect;
   }
 }

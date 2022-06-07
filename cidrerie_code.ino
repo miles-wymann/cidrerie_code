@@ -18,13 +18,20 @@
 #define CW 0b100001  // knob turn CW pattern
 #define DEF 0b11     // default / base value of encoder signal
 
+
 byte prevPattern = 0;   // previous signal pattern
 byte pattern = 0;       // actual signal pattern
 bool keyPushed = false; // button push status
 
+int time = 0;
 int tempSelect = 0;
 int maxtemp = 30;
 int mintemp = 1;
+
+byte aktKey;
+byte aktS1;
+byte aktS2;
+byte aktPattern;
 
 const int numReadings = 60;
 int inputPin = 15;
@@ -41,7 +48,8 @@ float temp = 0.0;
 byte button1Last = 0;
 byte button1State = 0;
 
-int temperature;
+int consigne;
+float temperature;
 float temperature_consigne = 5;
 float tempOffset = -1.5;
 
@@ -52,17 +60,18 @@ struct NOMBRE
   int decimale;
 };
 
-int readTemp();
+int selectTemp();
+float readTemp();
 void affiche_temperature(NOMBRE nombre);
 NOMBRE creer_nombre(float temp);
 void relais();
 
 void loop()
 {
-
+  time = millis();
   selectTemp();             // potntiometre + bouton
-  temperature = readTemp(); // lecture de temperature par NTC
-  NOMBRE nombre = creer_nombre(temperature);
-  affiche_temperature(nombre); // Affichage
+  temperature = readTemp()*10; // lecture de temperature par NTC
+  // NOMBRE nombre = creer_nombre(temperature);
+  // affiche_temperature(nombre); // Affichage
   relais();
 }
