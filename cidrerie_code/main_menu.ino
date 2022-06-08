@@ -24,10 +24,11 @@ int main_menu (int boutton) {
   boutton = NONE;
 }
 
-void set_temp ()
+int set_temp ()
 {
   lcd.setCursor(0, 0);
   lcd.print("Temp. Consigne");
+  temperature = readTemp(); // lecture de temperature par NTC
   temp_consigne = temperature;
   while (1) {
     if (temp_consigne == 9) {

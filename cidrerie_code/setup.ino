@@ -1,7 +1,6 @@
-
-void setup()
-{
-
+void setup(){
+ sensors.begin(); 
+  
   pinMode(Relay1Pin, OUTPUT);
   pinMode(Relay2Pin, OUTPUT);
 

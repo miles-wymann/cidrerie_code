@@ -1,5 +1,13 @@
 float readTemp()
 {
+ Serial.begin(9600);
+ Serial.println(sensors.getTempCByIndex(0));
+ sensors.requestTemperatures(); // Send the command to get temperature readings 
+ return(sensors.getTempCByIndex(0));
+}
+
+
+  /*
   // subtract the last reading:
   total = total - readings[readIndex];
   readings[readIndex] = analogRead(inputPin);
@@ -18,21 +26,21 @@ float readTemp()
   // send it to the computer as ASCII digits
 
   v = average * (5.0 / 1023.0);
-  temp = 0.1939 * pow(v, 6) - 3.5228 * pow(v, 5) + 24.898 * pow(v, 4) - 88.351 * pow(v, 3) + 168.26 * pow(v, 2) - 185.45 * v + 132.38;
- 
-  return temp;
-}
+    Serial.println(v);
+  temp = 0.05334 * pow(v, 6) - 0.9057 * pow(v, 5) + 6.367 * pow(v, 4) - 24.7 * pow(v, 3) + 57.69 * pow(v, 2) - 94.88 * pow(v, 1) + 105.5;
+  return temp + tempOffset;
+  */
 
 
 void relais()
 {
 
-  if (temp/10 <= temp_consigne - .3)
+  if (temperature <= temp_consigne - .3)
   {
     digitalWrite(Relay1Pin, LOW);
     digitalWrite(Relay2Pin, LOW);
   }
-  if (temp/10 >= temp_consigne + .3)
+  if (temperature >= temp_consigne + .3)
   {
     digitalWrite(Relay1Pin, HIGH);
     digitalWrite(Relay2Pin, HIGH);
