@@ -1,8 +1,12 @@
-void setup(){
- sensors.begin(); 
-  
+/*
+ * Setup
+*/
+void setup() {
+  sensors.begin();
   pinMode(Relay1Pin, OUTPUT);
   pinMode(Relay2Pin, OUTPUT);
+  digitalWrite(Relay1Pin, LOW);
+  digitalWrite(Relay2Pin, LOW);
 
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);

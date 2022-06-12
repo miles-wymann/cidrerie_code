@@ -1,3 +1,7 @@
+/*************************************************
+  lit la valeur de lentree analogique A0 et
+  retourne la valeur correspondant au bouton presse
+*/
 int Current_Boutton() {
   int bouton_presse = NONE;
   int u_boutton;
@@ -18,6 +22,6 @@ int Current_Boutton() {
   else if (u_boutton < 800) {
     bouton_presse = SELECT;
   }
-  
+
   return bouton_presse;
 }
