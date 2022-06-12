@@ -1,11 +1,18 @@
 #include <Wire.h>
 #include <LiquidCrystal.h>
-
+#include <OneWire.h> 
+#include <DallasTemperature.h>
 
 LiquidCrystal lcd( 8, 9, 4, 5, 6, 7 ); //interfacing pins
 
+
+#define ONE_WIRE_BUS 24
+OneWire oneWire(ONE_WIRE_BUS); 
+DallasTemperature sensors(&oneWire);
+
+
+
 const int numReadings = 60;
-int inputPin = A15;
 int sensorValue = 0;
 int Relay1Pin = 25;
 int Relay2Pin = 27;
@@ -20,9 +27,9 @@ int tempSelect = 0;
 int maxtemp = 30;
 int mintemp = 1;
 int cuve_no = 1;
-float temp = 0.0;
+float tempOffset;
 int temp_consigne;
-int temperature = 27;
+float temperature;
 enum etat { SETUP, TEMP_SETUP, REGUL};
 
 enum motion {
@@ -31,8 +38,10 @@ enum motion {
 int etat_general = SETUP;
 
 
+
 void loop()
 {
+
   int accessMenu = Current_Boutton();
   switch (etat_general) {
     case SETUP:
@@ -41,6 +50,8 @@ void loop()
           lcd.clear();
           //selection_menu();
           main_menu(Current_Boutton());
+                    digitalWrite(Relay1Pin, LOW);
+    digitalWrite(Relay2Pin, LOW);
         } while (etat_general == SETUP);
       }
       break;
@@ -50,17 +61,17 @@ void loop()
       set_temp ();
       break;
     case REGUL:
-    delay(150);
       accessMenu = NONE;
-      Serial.println(temp);
+    delay(150);
       lcd.setCursor(12, 1);
       lcd.print(temperature);
       lcd.setCursor(0, 1);
       lcd.print("Temperature");
 
-      accessMenu = Current_Boutton();
       temperature = readTemp(); // lecture de temperature par NTC
       relais();
+      accessMenu = Current_Boutton();
+  Serial.println(accessMenu);
       if (accessMenu == SELECT) {
         etat_general = SETUP;
       }
