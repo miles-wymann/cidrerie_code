@@ -1,8 +1,8 @@
-/*Affiche le menu et permet de choisir la cuve a reguler
+/* nom:main_menu
+   Description:
+   Affiche le menu et permet de choisir la cuve a reguler
    recoit la valeur du bouton press
-   retourne une valeur non utilisee (sinon warnimg au return 0)
-
-*/
+   retourne une valeur non utilisee (sinon warnimg au return 0) */
 
 int main_menu (int boutton) {
   lcd.setCursor(0, 0);
@@ -31,10 +31,11 @@ int main_menu (int boutton) {
   boutton = NONE;
 }
 
-/**********************************
+/********************************** *
+   nom:set_temp
+   Description:
    permet de choisir la valeur de la temérature de consigne
-   retourne la temperature de consigen choisie
-*/
+   retourne la temperature de consigen choisie */
 int set_temp ()
 {
   lcd.setCursor(0, 0);

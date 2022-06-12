@@ -1,7 +1,8 @@
 /*************************************************
-  lit la valeur de lentree analogique A0 et
-  retourne la valeur correspondant au bouton presse
-*/
+   nom:CurrentBoutton
+   Description:
+   lit la valeur de lentree analogique A0 et
+   retourne la valeur correspondant au bouton presse*/
 int Current_Boutton() {
   int bouton_presse = NONE;
   int u_boutton;

@@ -1,7 +1,8 @@
-/***************************
+/*************************** *
+   nom:read_temp
+   Description:
    Lit la valeur de lentrée numerique et decode la temperature
-   retourne la valeur de la temperature en format flottant
-*/
+   retourne la valeur de la temperature en format flottant*/
 float readTemp()
 {
   Serial.begin(9600);
@@ -35,10 +36,11 @@ float readTemp()
   return temp + tempOffset;
 */
 
-/*
+/* *******************************************
+   nom:relais
+   Description:
    Change les etats des relais selon la temperature de consigne
-   et la temperature mesurée
-*/
+   et la temperature mesurée */
 void relais()
 {
 

@@ -1,6 +1,6 @@
 #include <Wire.h>
 #include <LiquidCrystal.h>
-//#include <OneWire.h>
+#include <OneWire.h>
 #include <DallasTemperature.h>
 #define TEMP_MAX 30
 #define TEMP_MIN 0
@@ -28,7 +28,7 @@ int Relay2Pin = 27;
 
 //int maxtemp = 30;
 //int mintemp = 1;
-//int cuve_no = 1;
+int cuve_no = 1;
 //float tempOffset;
 int temp_consigne;
 float temperature;
@@ -37,7 +37,7 @@ enum etat { MENU, TEMP_SETUP, REGUL};
 enum motion {
   UP, DOWN, LEFT, RIGHT, SELECT, NONE
 };
-int etat_general = SETUP;
+int etat_general = MENU;
 
 
 
@@ -70,7 +70,7 @@ void loop()
       accessMenu = Current_Boutton();
       Serial.println(accessMenu);
       if (accessMenu == SELECT) {
-        etat_general = SETUP;
+        etat_general = MENU;
       }
 
   }
