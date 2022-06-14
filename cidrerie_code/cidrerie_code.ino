@@ -12,8 +12,6 @@ LiquidCrystal lcd( 8, 9, 4, 5, 6, 7 ); //interfacing pins
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 
-
-
 const int numReadings = 60;
 int sensorValue = 0;
 int Relay1Pin = 25;
@@ -43,10 +41,10 @@ int etat_general = MENU;
 
 void loop()
 {
-  int accessMenu = Current_Boutton();
+  int bouton_pressed = Current_Boutton();
   switch (etat_general) {
     case MENU:
-      if (accessMenu == SELECT) {
+      if (bouton_pressed == SELECT) {
         lcd.clear();
         //selection_menu();
         main_menu(Current_Boutton());
@@ -58,7 +56,7 @@ void loop()
       set_temp ();
       break;
     case REGUL:
-      accessMenu = NONE;
+      bouton_pressed = NONE;
       delay(150);
       lcd.setCursor(12, 1);
       lcd.print(temperature);
@@ -67,9 +65,8 @@ void loop()
 
       temperature = readTemp(); // lecture de temperature par NTC
       relais();
-      accessMenu = Current_Boutton();
-      Serial.println(accessMenu);
-      if (accessMenu == SELECT) {
+      bouton_pressed = Current_Boutton();
+      if (bouton_pressed == SELECT) {
         etat_general = MENU;
       }
 

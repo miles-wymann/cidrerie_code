@@ -1,5 +1,5 @@
 /*************************************************
-   nom:CurrentBoutton
+   nom: CurrentBoutton
    Description:
    lit la valeur de lentree analogique A0 et
    retourne la valeur correspondant au bouton presse*/
