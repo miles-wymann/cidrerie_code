@@ -8,7 +8,7 @@ void setup(){
   lcd.begin(16, 2);
   // Print a message to the LCD.
   lcd.setCursor(0, 0);
-  lcd.print("Barbey Cidredrie");
+  lcd.print("Barbe Cidredrie");
   lcd.setCursor(0, 1);
   lcd.print("Press Select");
 }
